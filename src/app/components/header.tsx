@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
+import SearchInput from "./search-input";
 
 export default function Header() {
   return (
@@ -10,6 +11,9 @@ export default function Header() {
       <Link href="/" className="text-lg font-semibold">
         Weather App
       </Link>
+      <div className="ms-auto">
+        <SearchInput />
+      </div>
     </header>
   );
 }
