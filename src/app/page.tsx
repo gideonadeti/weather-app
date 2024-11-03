@@ -9,6 +9,7 @@ import { WeatherData } from "./types";
 import { useTempStore } from "./stores/temp";
 import { useWindStore } from "./stores/wind";
 import { usePressureStore } from "./stores/pressure";
+import { usePrecipStore } from "./stores/precip";
 
 export default function Page() {
   const { data: weatherData } = useQuery<WeatherData>({
@@ -17,6 +18,7 @@ export default function Page() {
   const { temp } = useTempStore();
   const { wind } = useWindStore();
   const { pressure } = usePressureStore();
+  const { precip } = usePrecipStore();
 
   if (!weatherData) {
     return null;
@@ -73,7 +75,11 @@ export default function Page() {
         </div>
         <div>
           <Muted>PRECIPITATION</Muted>
-          <P>{weatherData.current.precip_mm} mm</P>
+          <P>
+            {precip === "precip_mm"
+              ? `${current.precip_mm} mm`
+              : `${current.precip_in} in`}
+          </P>
         </div>
         <div>
           <Muted>HUMIDITY</Muted>

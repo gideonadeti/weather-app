@@ -8,6 +8,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTempStore } from "@/app/stores/temp";
 import { useWindStore } from "@/app/stores/wind";
 import { usePressureStore } from "@/app/stores/pressure";
+import { usePrecipStore } from "@/app/stores/precip";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -65,6 +66,7 @@ export function AppSidebar() {
   const { setTemp } = useTempStore();
   const { setWind } = useWindStore();
   const { setPressure } = usePressureStore();
+  const { setPrecip } = usePrecipStore();
 
   function handleUnitChange(unitName: string, value: string) {
     switch (unitName) {
@@ -76,6 +78,9 @@ export function AppSidebar() {
         break;
       case "PRESSURE":
         setPressure(value as "pressure_mb" | "pressure_in");
+        break;
+      case "PRECIPITATION":
+        setPrecip(value as "precip_mm" | "precip_in");
         break;
       default:
         break;
