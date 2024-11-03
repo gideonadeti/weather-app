@@ -26,7 +26,7 @@ const formSchema = z.object({
 });
 
 async function getWeatherData(cityName: string) {
-  const URL = `http://api.weatherapi.com/v1/current.json?key=${process.env.NEXT_PUBLIC_API_KEY}&q=${cityName}&aqi=no`;
+  const URL = `https://api.weatherapi.com/v1/current.json?key=${process.env.NEXT_PUBLIC_API_KEY}&q=${cityName}&aqi=no`;
 
   try {
     const response = await axios.get(URL);
