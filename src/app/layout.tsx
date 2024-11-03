@@ -5,6 +5,7 @@ import "./globals.css";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 import Header from "./components/header";
 import QCProvider from "./components/query-client-provider";
 
@@ -47,6 +48,7 @@ export default function RootLayout({
                 <Header />
                 {children}
               </QCProvider>
+              <Toaster />
             </main>
           </SidebarProvider>
         </ThemeProvider>

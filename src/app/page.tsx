@@ -1,12 +1,23 @@
+"use client";
+
 import Image from "next/image";
 import { formatDistanceToNow, format } from "date-fns";
+import { useQuery } from "@tanstack/react-query";
 
 import { H1, Muted, P } from "./components/custom-tags";
-import weatherData from "../../public/weather-data.json";
+import { WeatherData } from "./types";
 
 export default function Page() {
-  const location = weatherData.location;
-  const current = weatherData.current;
+  const { data: weatherData } = useQuery<WeatherData>({
+    queryKey: ["weatherData"],
+    enabled: false,
+  });
+
+  if (!weatherData) {
+    return null;
+  }
+
+  const { location, current } = weatherData;
 
   return (
     <div className="flex-grow px-4 space-y-4">
