@@ -10,6 +10,7 @@ import { useTempStore } from "./stores/temp";
 import { useWindStore } from "./stores/wind";
 import { usePressureStore } from "./stores/pressure";
 import { usePrecipStore } from "./stores/precip";
+import { useVisStore } from "./stores/vis";
 
 export default function Page() {
   const { data: weatherData } = useQuery<WeatherData>({
@@ -19,6 +20,7 @@ export default function Page() {
   const { wind } = useWindStore();
   const { pressure } = usePressureStore();
   const { precip } = usePrecipStore();
+  const { vis } = useVisStore();
 
   if (!weatherData) {
     return null;
@@ -95,7 +97,11 @@ export default function Page() {
         </div>
         <div>
           <Muted>VISIBILITY</Muted>
-          <P>{weatherData.current.vis_km} km</P>
+          <P>
+            {vis === "vis_km"
+              ? `${weatherData.current.vis_km} km`
+              : `${weatherData.current.vis_miles} miles`}
+          </P>
         </div>
       </div>
     </div>

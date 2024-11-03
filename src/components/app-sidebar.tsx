@@ -9,6 +9,7 @@ import { useTempStore } from "@/app/stores/temp";
 import { useWindStore } from "@/app/stores/wind";
 import { usePressureStore } from "@/app/stores/pressure";
 import { usePrecipStore } from "@/app/stores/precip";
+import { useVisStore } from "@/app/stores/vis";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -67,6 +68,7 @@ export function AppSidebar() {
   const { setWind } = useWindStore();
   const { setPressure } = usePressureStore();
   const { setPrecip } = usePrecipStore();
+  const { setVis } = useVisStore();
 
   function handleUnitChange(unitName: string, value: string) {
     switch (unitName) {
@@ -81,6 +83,9 @@ export function AppSidebar() {
         break;
       case "PRECIPITATION":
         setPrecip(value as "precip_mm" | "precip_in");
+        break;
+      case "VISIBILITY":
+        setVis(value as "vis_km" | "vis_miles");
         break;
       default:
         break;
