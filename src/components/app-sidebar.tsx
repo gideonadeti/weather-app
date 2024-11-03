@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTempStore } from "@/app/stores/temp";
 import { useWindStore } from "@/app/stores/wind";
+import { usePressureStore } from "@/app/stores/pressure";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -63,6 +64,7 @@ const weatherUnits = [
 export function AppSidebar() {
   const { setTemp } = useTempStore();
   const { setWind } = useWindStore();
+  const { setPressure } = usePressureStore();
 
   function handleUnitChange(unitName: string, value: string) {
     switch (unitName) {
@@ -71,6 +73,9 @@ export function AppSidebar() {
         break;
       case "WIND SPEED":
         setWind(value as "wind_kph" | "wind_mph");
+        break;
+      case "PRESSURE":
+        setPressure(value as "pressure_mb" | "pressure_in");
         break;
       default:
         break;

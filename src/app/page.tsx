@@ -8,6 +8,7 @@ import { H1, Muted, P } from "./components/custom-tags";
 import { WeatherData } from "./types";
 import { useTempStore } from "./stores/temp";
 import { useWindStore } from "./stores/wind";
+import { usePressureStore } from "./stores/pressure";
 
 export default function Page() {
   const { data: weatherData } = useQuery<WeatherData>({
@@ -15,6 +16,7 @@ export default function Page() {
   });
   const { temp } = useTempStore();
   const { wind } = useWindStore();
+  const { pressure } = usePressureStore();
 
   if (!weatherData) {
     return null;
@@ -63,7 +65,11 @@ export default function Page() {
         </div>
         <div>
           <Muted>PRESSURE</Muted>
-          <P>{weatherData.current.pressure_mb} hPa</P>
+          <P>
+            {pressure === "pressure_mb"
+              ? `${current.pressure_mb} mb`
+              : `${current.pressure_in} in`}
+          </P>
         </div>
         <div>
           <Muted>PRECIPITATION</Muted>
