@@ -6,6 +6,7 @@ import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTempStore } from "@/app/stores/temp";
+import { useWindStore } from "@/app/stores/wind";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -61,11 +62,15 @@ const weatherUnits = [
 
 export function AppSidebar() {
   const { setTemp } = useTempStore();
+  const { setWind } = useWindStore();
 
   function handleUnitChange(unitName: string, value: string) {
     switch (unitName) {
       case "TEMPERATURE":
         setTemp(value as "temp_c" | "temp_f");
+        break;
+      case "WIND SPEED":
+        setWind(value as "wind_kph" | "wind_mph");
         break;
       default:
         break;

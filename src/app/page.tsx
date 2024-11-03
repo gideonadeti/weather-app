@@ -7,12 +7,14 @@ import { useQuery } from "@tanstack/react-query";
 import { H1, Muted, P } from "./components/custom-tags";
 import { WeatherData } from "./types";
 import { useTempStore } from "./stores/temp";
+import { useWindStore } from "./stores/wind";
 
 export default function Page() {
   const { data: weatherData } = useQuery<WeatherData>({
     queryKey: ["weatherData"],
   });
   const { temp } = useTempStore();
+  const { wind } = useWindStore();
 
   if (!weatherData) {
     return null;
@@ -53,7 +55,11 @@ export default function Page() {
         </div>
         <div>
           <Muted>WIND SPEED</Muted>
-          <P>{weatherData.current.wind_kph} km/h</P>
+          <P>
+            {wind === "wind_mph"
+              ? `${current.wind_mph} mph`
+              : `${current.wind_kph} km/h`}
+          </P>
         </div>
         <div>
           <Muted>PRESSURE</Muted>
