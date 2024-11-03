@@ -4,8 +4,9 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
-import Header from "./components/header";
 import { ThemeProvider } from "@/components/theme-provider";
+import Header from "./components/header";
+import QCProvider from "./components/query-client-provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,14 +34,21 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-        <SidebarProvider>
-          <AppSidebar />
-          <main className="flex-grow flex flex-col">
-            <Header />
-            {children}
-          </main>
-        </SidebarProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <SidebarProvider>
+            <AppSidebar />
+            <main className="flex-grow flex flex-col">
+              <QCProvider>
+                <Header />
+                {children}
+              </QCProvider>
+            </main>
+          </SidebarProvider>
         </ThemeProvider>
       </body>
     </html>
