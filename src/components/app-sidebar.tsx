@@ -5,6 +5,7 @@ import { useTheme } from "next-themes";
 
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useTempStore } from "@/app/stores/temp";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,27 +24,54 @@ import {
 const weatherUnits = [
   {
     name: "TEMPERATURE",
-    options: ["Celsius (°C)", "Fahrenheit (°F)"],
+    options: [
+      { value: "temp_c", unit: "°C" },
+      { value: "temp_f", unit: "°F" },
+    ],
   },
   {
     name: "WIND SPEED",
-    options: ["km/h", "mph"],
+    options: [
+      { value: "wind_kph", unit: "km/h" },
+      { value: "wind_mph", unit: "mph" },
+    ],
   },
   {
     name: "PRESSURE",
-    options: ["mb", "in"],
+    options: [
+      { value: "pressure_mb", unit: "mb" },
+      { value: "pressure_in", unit: "in" },
+    ],
   },
   {
     name: "PRECIPITATION",
-    options: ["Millimeters (mm)", "Inches (in)"],
+    options: [
+      { value: "precip_mm", unit: "mm" },
+      { value: "precip_in", unit: "in" },
+    ],
   },
   {
     name: "VISIBILITY",
-    options: ["Kilometers (km)", "Miles (mi)"],
+    options: [
+      { value: "vis_km", unit: "km" },
+      { value: "vis_miles", unit: "mi" },
+    ],
   },
 ];
 
 export function AppSidebar() {
+  const { setTemp } = useTempStore();
+
+  function handleUnitChange(unitName: string, value: string) {
+    switch (unitName) {
+      case "TEMPERATURE":
+        setTemp(value as "temp_c" | "temp_f");
+        break;
+      default:
+        break;
+    }
+  }
+
   return (
     <Sidebar>
       <SidebarContent>
@@ -51,11 +79,14 @@ export function AppSidebar() {
           <SidebarGroup key={unit.name}>
             <SidebarGroupLabel>{unit.name}</SidebarGroupLabel>
             <SidebarGroupContent>
-              <Tabs defaultValue={unit.options[0]}>
+              <Tabs
+                defaultValue={unit.options[0].value}
+                onValueChange={(value) => handleUnitChange(unit.name, value)}
+              >
                 <TabsList>
                   {unit.options.map((option) => (
-                    <TabsTrigger key={option} value={option}>
-                      {option}
+                    <TabsTrigger key={option.value} value={option.value}>
+                      {option.unit}
                     </TabsTrigger>
                   ))}
                 </TabsList>

@@ -6,11 +6,13 @@ import { useQuery } from "@tanstack/react-query";
 
 import { H1, Muted, P } from "./components/custom-tags";
 import { WeatherData } from "./types";
+import { useTempStore } from "./stores/temp";
 
 export default function Page() {
   const { data: weatherData } = useQuery<WeatherData>({
     queryKey: ["weatherData"],
   });
+  const { temp } = useTempStore();
 
   if (!weatherData) {
     return null;
@@ -24,7 +26,9 @@ export default function Page() {
         {location.name}, {location.region}, {location.country}
       </H1>
       <div className="flex items-center gap-4">
-        <H1>{current.temp_c}°C</H1>
+        <H1>
+          {temp === "temp_c" ? `${current.temp_c} °C` : `${current.temp_f} °F`}
+        </H1>
         <Image
           src={`https:${current.condition.icon}`}
           width={60}
@@ -65,7 +69,11 @@ export default function Page() {
         </div>
         <div>
           <Muted>FEELS LIKE</Muted>
-          <P>{weatherData.current.feelslike_c} °C</P>
+          <P>
+            {temp === "temp_c"
+              ? `${current.feelslike_c} °C`
+              : `${current.feelslike_f} °F`}
+          </P>
         </div>
         <div>
           <Muted>VISIBILITY</Muted>
