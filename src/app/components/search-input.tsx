@@ -48,8 +48,7 @@ export default function SearchInput() {
   const { toast } = useToast();
   const { error, isFetching, refetch } = useQuery<WeatherData, AxiosError>({
     queryKey: ["weatherData"],
-    queryFn: () => getWeatherData(form.getValues("cityName")),
-    enabled: false,
+    queryFn: () => getWeatherData(form.getValues("cityName") || "Koforidua"),
   });
 
   async function onSubmit() {

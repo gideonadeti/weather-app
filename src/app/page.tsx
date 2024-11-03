@@ -10,7 +10,6 @@ import { WeatherData } from "./types";
 export default function Page() {
   const { data: weatherData } = useQuery<WeatherData>({
     queryKey: ["weatherData"],
-    enabled: false,
   });
 
   if (!weatherData) {
