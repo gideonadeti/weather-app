@@ -5,6 +5,7 @@ import "./globals.css";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import Header from "./components/header";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,6 +33,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
         <SidebarProvider>
           <AppSidebar />
           <main className="flex-grow flex flex-col">
@@ -39,6 +41,7 @@ export default function RootLayout({
             {children}
           </main>
         </SidebarProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
